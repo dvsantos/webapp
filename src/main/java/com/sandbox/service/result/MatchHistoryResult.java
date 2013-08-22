@@ -1,5 +1,6 @@
 package com.sandbox.service.result;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MatchHistoryResult {
@@ -14,7 +15,7 @@ public class MatchHistoryResult {
 	
 	private int resultsRemaining;
 	
-	private List<Match> matches;
+	private List<Match> matches = new ArrayList<>();
 
 	public int getStatus() {
 		return status;
@@ -54,6 +55,14 @@ public class MatchHistoryResult {
 
 	public void setMatches(List<Match> matches) {
 		this.matches = matches;
+	}
+
+	@Override
+	public String toString() {
+		return "MatchHistoryResult [status=" + status + ", numResults="
+				+ numResults + ", totalResults=" + totalResults
+				+ ", resultsRemaining=" + resultsRemaining + ", matches="
+				+ matches + "]";
 	}
 	
 }

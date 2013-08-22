@@ -15,7 +15,10 @@ public class SampleController {
 	
     @RequestMapping("/path")
     public String helloWorld(Model model) {
-        model.addAttribute("message", "asas");
+    	
+    	
+    	
+        model.addAttribute("matchHistoryResult", steamService.getMatchHistory(103229594));
         
         return "path";
     }
