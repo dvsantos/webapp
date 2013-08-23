@@ -1,5 +1,7 @@
 package com.sandbox.service.result;
 
+import java.util.List;
+
 public class Player {
 
 	private long accountId;
@@ -7,6 +9,35 @@ public class Player {
 	private int playerSlot;
 	
 	private int heroId;
+	
+	private List<Item> items;
+	
+	private int kills;
+	
+	private int deaths;
+	
+	private int assists;
+	
+//	"kills": 5,
+//	"deaths": 3,
+//	"assists": 12,
+//	"leaver_status": 0,
+//	"gold": 247,
+//	"last_hits": 123,
+//	"denies": 1,
+//	"gold_per_min": 457,
+//	"xp_per_min": 567,
+//	"gold_spent": 18988,
+//	"hero_damage": 7369,
+//	"tower_damage": 1085,
+//	"hero_healing": 462,
+//	"level": 21,
+//	"ability_upgrades": [
+//		{
+//			"ability": 5116,
+//			"time": 185,
+//			"level": 1
+//		},
 
 	public long getAccountId() {
 		return accountId;

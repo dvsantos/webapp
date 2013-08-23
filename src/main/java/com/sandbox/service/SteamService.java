@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import com.sandbox.service.result.Match;
+import com.sandbox.service.result.MatchDetailsResult;
 import com.sandbox.service.result.MatchHistoryResult;
 import com.sandbox.service.result.Player;
 
@@ -83,6 +84,37 @@ public class SteamService {
 			httpclient.getConnectionManager().shutdown();
 		}
 
+		return null;
+	}
+	
+	public MatchDetailsResult getMatchDetails(long matchId) {
+		
+		HttpClient httpclient = new DefaultHttpClient();
+
+		String url = baseURL + "GetMatchDetails/V001/" + "?key=" + key
+				+ "&match_id=" + matchId;
+
+		try {
+			HttpGet httpget = new HttpGet(url);
+			
+			ResponseHandler<String> responseHandler = new BasicResponseHandler();
+			String responseBody = httpclient.execute(httpget, responseHandler);
+
+			JSONObject obj = new JSONObject(responseBody);
+			
+			MatchDetailsResult matchDetailsResult = new MatchDetailsResult();
+			
+			JSONObject res = obj.getJSONObject("result");
+			
+			
+			
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			httpclient.getConnectionManager().shutdown();
+		}
+		
 		return null;
 	}
 
