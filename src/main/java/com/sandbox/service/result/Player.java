@@ -18,9 +18,8 @@ public class Player {
 	
 	private int assists;
 	
-//	"kills": 5,
-//	"deaths": 3,
-//	"assists": 12,
+	
+	
 //	"leaver_status": 0,
 //	"gold": 247,
 //	"last_hits": 123,
