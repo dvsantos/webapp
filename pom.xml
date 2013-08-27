@@ -9,6 +9,15 @@
   <url>http://maven.apache.org</url>
   
   
+    <repositories>
+        <repository>
+            <id>XypronRelease</id>
+            <name>Xypron Release</name>
+            <url>http://rsync.xypron.de/repository</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
+  
 	<properties>
 		<spring.version>3.2.4.RELEASE</spring.version>
 	</properties>
@@ -54,6 +63,21 @@
 		<artifactId>json</artifactId>
 		<version>20090211</version>
 	</dependency>
+  
+  
+  	<!--
+	<dependency>
+		<groupId>org.apache.commons</groupId>
+		<artifactId>commons-math3</artifactId>
+		<version>3.2</version>
+	</dependency>
+	-->
+	
+    <dependency>
+        <groupId>org.gnu.glpk</groupId>
+        <artifactId>glpk-java</artifactId>
+        <version>1.0.31</version>
+    </dependency>
   
     <dependency>
       <groupId>junit</groupId>
