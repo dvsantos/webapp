@@ -53,10 +53,68 @@ public class SampleController {
     	Date expiry = new Date( epoch * 1000 );
     	System.out.println(expiry);
     	
+
+		SolverFactory factory = new SolverFactoryGLPK(); // use lp_solve
+    	factory.setParameter(Solver.VERBOSE, 9); 
+    	factory.setParameter(Solver.TIMEOUT, 100); // set timeout to 100 seconds
+    	
+    	Problem problem = new Problem();
+    	
+    	Linear linear = new Linear();
+    	//linear.add(0, "a");
+    	//linear.add(0, "b");
+    	//linear.add(0, "c");
+    	linear.add(1, "d");
+    	//linear.add(0, "e");
+    	//linear.add(0, "f");
+    	problem.setObjective(linear, OptType.MIN);
     	
     	
+    	linear = new Linear();
+    	linear.add(1, "a");
+    	//linear.add(0, "b");
+    	linear.add(2, "c");
+    	linear.add(1, "d");
+    	linear.add(2, "e");
+    	linear.add(3, "f");
+
+    	problem.add(linear, "=", 3);
     	
-    	SolverFactory factory = new SolverFactoryGLPK(); // use lp_solve
+    	
+    	linear = new Linear();
+    	linear.add(1, "a");
+    	linear.add(3, "b");
+    	linear.add(2, "c");
+    	linear.add(3, "d");
+    	linear.add(2, "e");
+    	//linear.add(0, "f");
+
+    	problem.add(linear, "=", 3);
+    	
+    	problem.setVarType("a", Integer.class);
+    	problem.setVarType("b", Integer.class);
+    	problem.setVarType("c", Integer.class);
+    	problem.setVarType("d", Integer.class);
+    	problem.setVarType("e", Integer.class);
+    	problem.setVarType("f", Integer.class);
+
+    	problem.setVarLowerBound("a", 0);
+    	problem.setVarLowerBound("b", 0);
+    	problem.setVarLowerBound("c", 0);
+    	problem.setVarLowerBound("d", 0);
+    	problem.setVarLowerBound("e", 0);
+    	problem.setVarLowerBound("f", 0);
+    	
+    	Solver solver = factory.get(); // you should use this solver only once for one problem
+    	Result result = solver.solve(problem);
+
+    	System.out.println(result);
+    
+    	
+	}
+
+	private static void ilp() {
+		SolverFactory factory = new SolverFactoryGLPK(); // use lp_solve
     	factory.setParameter(Solver.VERBOSE, 0); 
     	factory.setParameter(Solver.TIMEOUT, 100); // set timeout to 100 seconds
 
@@ -114,7 +172,6 @@ public class SampleController {
     	result = solver.solve(problem);
 
     	System.out.println(result);
-    	
 	}
     
 }
