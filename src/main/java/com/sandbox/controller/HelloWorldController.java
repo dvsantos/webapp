@@ -20,6 +20,7 @@ public class HelloWorldController {
 	}
 
 	// -Djava.library.path=/usr/local/lib/jni/
+	// -Djava.library.path=C:\Users\Diogo\Desktop\Diogo\Dev\winglpk\glpk-4.52\w32
 
 	// Maximize z = 17 * x1 + 12* x2
 	// subject to

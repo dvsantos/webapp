@@ -73,6 +73,12 @@
 	</dependency>
 	-->
 	
+	<dependency>
+        <groupId>net.sf.javailp</groupId>
+        <artifactId>javailp</artifactId>
+        <version>1.2a</version>
+    </dependency>
+	
     <dependency>
         <groupId>org.gnu.glpk</groupId>
         <artifactId>glpk-java</artifactId>
