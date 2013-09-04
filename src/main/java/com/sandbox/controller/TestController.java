@@ -1,8 +1,6 @@
 package com.sandbox.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -13,6 +11,9 @@ import java.util.Set;
 import com.sandbox.test.CutBar;
 import com.sandbox.test.CutItem;
 import com.sandbox.test.CutPattern;
+import com.sandbox.test.CutStockProblem;
+import com.sandbox.test.CutStockProblemSolver;
+import com.sandbox.test.CutStockSolution;
 
 public class TestController {
 
@@ -27,7 +28,7 @@ public class TestController {
 		Map<CutItem, Integer> demand = new HashMap<>();
 		
 		CutBar bar = new CutBar();
-		bar.setSize(900.0);
+		bar.setSize(1700.0);
 		
 		CutItem itemA = new CutItem();
 		itemA.setName("A");
@@ -39,22 +40,92 @@ public class TestController {
 		itemB.setSize(600.0);
 		demand.put(itemB, 3);
 		
-		System.out.println(getBarPatterns(bar, demand));
+//		System.out.println(getBarPatterns(bar, demand));
 		
+		prettyPrint(bar, demand, getBarPatterns(bar, demand));
+		
+		CutStockProblem problem = new CutStockProblem();
+
+		problem.getAvailableBars().add(bar);
+		problem.setDemand(demand);
+		
+
+		CutStockProblemSolver solver = new CutStockProblemSolver();
+		solver.setProblem(problem);
+		CutStockSolution solution = solver.solve();
+		
+	}
+	
+	
+	
+
+
+	private static void prettyPrint(CutBar bar, Map<CutItem, Integer> demand, Set<CutPattern> barPatterns) {
+		
+		System.out.println("Bar size: " + bar.getSize());
+		
+		for(Entry<CutItem, Integer> itemDemand : demand.entrySet()) {
+			CutItem item = itemDemand.getKey();
+			Integer required = itemDemand.getValue();
+			
+			System.out.println("Item " + item.getName() + ", tam: " + item.getSize() + ", required: " + required);
+		}
+		
+		System.out.println("");
+		
+		int i = 0;
+		for(CutPattern pattern: barPatterns) {
+			
+			System.out.println("\tPattern " + (i++) + ", waste: " + pattern.getWaste());
+			
+			System.out.println("\tComposition:");
+			
+			for(Entry<CutItem, Integer> itemComposition : pattern.getCutComposition().entrySet()) {
+				
+				CutItem item = itemComposition.getKey();
+				Integer used = itemComposition.getValue();
+				
+				System.out.println("\t\tItem " + item.getName() + ", tam: " + item.getSize() + ", qtd: " + used);
+				
+			}
+			System.out.println("");
+		}
 		
 		
 	}
 
-	
-	
-	
-	
-	//problemas de math com Double
-	private static List<CutPattern> getBarPatterns(CutBar bar, Map<CutItem, Integer> demand) {
 
-		List<CutPattern> patterns = new ArrayList<>();
+
+	//problemas de math com Double
+	private static Set<CutPattern> getBarPatterns(CutBar bar, Map<CutItem, Integer> demand) {
+		Double totalOccuppiedSize = 0.0;
+		
+		Map<CutItem, Integer> fullComposition = new HashMap<>();
+		
+		for (Entry<CutItem, Integer> entry : demand.entrySet()) {
+			CutItem item = entry.getKey();
+			
+			Integer required = entry.getValue();
+			
+			totalOccuppiedSize = item.getSize() * required;
+			
+			fullComposition.put(item, required);
+		}
+		
+		Set<CutPattern> patterns = new HashSet<>();
 		
 		Double barSize = bar.getSize();
+		
+		if(totalOccuppiedSize <= barSize) {
+			
+			CutPattern pattern = new CutPattern();
+			
+			pattern.setBar(bar);
+			pattern.setWaste(barSize - totalOccuppiedSize);
+			pattern.setCutComposition(fullComposition);
+			patterns.add(pattern);
+			return patterns;
+		}
 		
 		for (Entry<CutItem, Integer> entry : demand.entrySet()) {
 
@@ -94,8 +165,8 @@ public class TestController {
 							remainingDemand.remove(item);
 							
 							if(remainingDemand.size() > 0) {
-								//não posso enviar um entry que ja foi?
-								List<CutPattern> remainingPatterns = getBarPatterns(remainingBar, remainingDemand);
+								//nao posso enviar um entry que ja foi?
+								Set<CutPattern> remainingPatterns = getBarPatterns(remainingBar, remainingDemand);
 								
 								return remainingPatterns;
 							}
@@ -114,8 +185,8 @@ public class TestController {
 					
 					if(remainingDemand.size() > 0) {
 						
-						//não posso enviar um entry que ja foi?
-						List<CutPattern> remainingPatterns = getBarPatterns(remainingBar, remainingDemand);
+						//nao posso enviar um entry que ja foi?
+						Set<CutPattern> remainingPatterns = getBarPatterns(remainingBar, remainingDemand);
 						
 						for(CutPattern remainingPattern : remainingPatterns) {
 							CutPattern pattern = new CutPattern();
@@ -140,12 +211,6 @@ public class TestController {
 			}
 		}
 		
-		Set<CutPattern> pSet = new HashSet<>();
-		pSet.addAll(patterns);
-		
-		patterns.clear();
-		patterns.addAll(pSet);
-
 		return patterns;
 	}
 	
