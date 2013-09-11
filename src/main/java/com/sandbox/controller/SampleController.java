@@ -66,12 +66,12 @@ public class SampleController {
     	Problem problem = new Problem();
     	
     	Linear linear = new Linear();
-    	//linear.add(0, "a");
-    	//linear.add(0, "b");
-    	//linear.add(0, "c");
+    	linear.add(0, "a");
+    	linear.add(0, "b");
+    	linear.add(0, "c");
     	linear.add(1, "d");
-    	//linear.add(0, "e");
-    	//linear.add(0, "f");
+    	linear.add(0, "e");
+    	linear.add(0, "f");
     	problem.setObjective(linear, OptType.MIN);
     	
     	
