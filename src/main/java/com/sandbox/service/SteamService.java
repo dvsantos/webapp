@@ -12,6 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+import com.sandbox.service.result.Hero;
 import com.sandbox.service.result.Item;
 import com.sandbox.service.result.Match;
 import com.sandbox.service.result.MatchDetailsResult;
@@ -182,11 +183,57 @@ public class SteamService {
 		
 		return null;
 	}
+	
+	public List<Hero> getHeroes(){
+		HttpClient httpclient = new DefaultHttpClient();
+
+		String url = "https://api.steampowered.com/IEconDOTA2_570/" + "GetHeroes/v0001/" + "?key=" + key
+				+ "&language=en_us";
+
+		try {
+			HttpGet httpget = new HttpGet(url);
+			
+			ResponseHandler<String> responseHandler = new BasicResponseHandler();
+			String responseBody = httpclient.execute(httpget, responseHandler);
+
+			JSONObject obj = new JSONObject(responseBody);
+			
+			JSONObject res = obj.getJSONObject("result");
+			
+			JSONArray heroesArray = res.getJSONArray("heroes");
+
+			List<Hero> heroes = new ArrayList<>();
+			
+			for (int j = 0; j < heroesArray.length(); j++) {
+				JSONObject heroObj = heroesArray.getJSONObject(j);
+				
+				Hero hero = new Hero();
+				
+				hero.setId(heroObj.getInt("id"));
+				hero.setName(heroObj.getString("name"));
+				hero.setLocalizedName(heroObj.getString("localized_name"));
+				hero.setLanguage("en_us");
+				
+				heroes.add(hero);
+			}
+			
+			return heroes;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			httpclient.getConnectionManager().shutdown();
+		}
+		
+		return null;
+	}
 
 	public static void main(String[] args) {
 		
 		SteamService service = new SteamService();
-		System.out.println(service.getMatchDetails(305007174));
+//		System.out.println(service.getMatchDetails(305007174));
+		
+		System.out.println(service.getHeroes());
 		
 	}
 	
