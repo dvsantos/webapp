@@ -1,4 +1,4 @@
-package com.sandbox.service.result;
+package com.sandbox.view.bean;
 
 public class Item {
 

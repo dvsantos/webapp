@@ -37,7 +37,7 @@ public class SampleController {
     
     @RequestMapping("/path2")
     public String path2(Model model) {
-    	long matchId = 283971180;
+    	long matchId = 305007174;
     	
         model.addAttribute("matchDetailResult", steamService.getMatchDetails(matchId));
         
@@ -46,6 +46,9 @@ public class SampleController {
         return "path2";
     }
 
+    
+    
+    
     
     
     public static void main(String[] args) {

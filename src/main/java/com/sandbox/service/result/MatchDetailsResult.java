@@ -4,6 +4,8 @@ import java.util.List;
 
 public class MatchDetailsResult {
 
+	private long matchId;
+	
 	private List<Player> players;
 	
 	private boolean radiantWin;
@@ -29,6 +31,14 @@ public class MatchDetailsResult {
 	private int leagueId;
 
 	private int gameMode;
+	
+	public long getMatchId() {
+		return matchId;
+	}
+
+	public void setMatchId(long matchId) {
+		this.matchId = matchId;
+	}
 
 	public List<Player> getPlayers() {
 		return players;

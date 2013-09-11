@@ -1,0 +1,17 @@
+
+
+
+
+
+
+#foreach($playerMatch in $playerMatches)
+
+	$playerMatch.hero.id - $playerMatch.wonMatch - $playerMatch.matchId - $playerMatch.duration - $playerMatch.kills/$playerMatch.deaths/$playerMatch.assists
+	
+	
+	
+	<br/>
+	
+	
+
+#end

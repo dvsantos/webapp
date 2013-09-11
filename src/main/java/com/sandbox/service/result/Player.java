@@ -37,7 +37,7 @@ public class Player {
 //			"time": 185,
 //			"level": 1
 //		},
-
+	
 	public long getAccountId() {
 		return accountId;
 	}
@@ -60,6 +60,38 @@ public class Player {
 
 	public void setHeroId(int heroId) {
 		this.heroId = heroId;
+	}
+	
+	public List<Item> getItems() {
+		return items;
+	}
+
+	public void setItems(List<Item> items) {
+		this.items = items;
+	}
+
+	public int getKills() {
+		return kills;
+	}
+
+	public void setKills(int kills) {
+		this.kills = kills;
+	}
+
+	public int getDeaths() {
+		return deaths;
+	}
+
+	public void setDeaths(int deaths) {
+		this.deaths = deaths;
+	}
+
+	public int getAssists() {
+		return assists;
+	}
+
+	public void setAssists(int assists) {
+		this.assists = assists;
 	}
 
 	@Override
