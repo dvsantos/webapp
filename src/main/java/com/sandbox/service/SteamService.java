@@ -20,6 +20,7 @@ import com.sandbox.service.result.Match;
 import com.sandbox.service.result.MatchDetailsResult;
 import com.sandbox.service.result.MatchHistoryResult;
 import com.sandbox.service.result.Player;
+import com.sandbox.service.result.PlayerSummary;
 
 @Service
 public class SteamService {
@@ -232,7 +233,7 @@ public class SteamService {
 
 	//http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=81388AF4FDBC32329C1C657A8E11420F&vanityurl=vernisan
 	//76561198063495322
-	public void getPlayerSummaries(Set<Long> steamids) {
+	public List<PlayerSummary> getPlayerSummaries(Set<Long> steamids) {
 		HttpClient httpclient = new DefaultHttpClient();
 
 		String idsParam  = "";
@@ -248,14 +249,40 @@ public class SteamService {
 			
 			ResponseHandler<String> responseHandler = new BasicResponseHandler();
 			String responseBody = httpclient.execute(httpget, responseHandler);
-			System.out.println(responseBody);
+			
+			List<PlayerSummary> playerSummaries = new ArrayList<>();
+
+			JSONObject obj = new JSONObject(responseBody);
+			
+			JSONObject res = obj.getJSONObject("response");
+			
+			JSONArray playersArray = res.getJSONArray("players");
+			
+			for (int j = 0; j < playersArray.length(); j++) {
+				JSONObject playerObj = playersArray.getJSONObject(j);
+				
+				PlayerSummary playerSummary = new PlayerSummary();
+				playerSummary.setSteamId(playerObj.getLong("steamid"));
+				playerSummary.setCommunityVisibilityState(playerObj.getInt("communityvisibilitystate"));
+				playerSummary.setPersonaname(playerObj.getString("personaname"));
+				playerSummary.setLastLogOff(playerObj.getLong("lastlogoff"));
+				playerSummary.setProfileurl(playerObj.getString("profileurl"));
+				playerSummary.setAvatar(playerObj.getString("avatar"));
+				playerSummary.setAvatarMedium(playerObj.getString("avatarmedium"));
+				playerSummary.setAvatarFull(playerObj.getString("avatarfull"));
+				playerSummary.setPersonastate(playerObj.getInt("personastate"));
+				
+				playerSummaries.add(playerSummary);
+			}
+			
+			return playerSummaries;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			httpclient.getConnectionManager().shutdown();
 		}
 		
-//		return null;
+		return null;
 		
 	}
 	
@@ -268,8 +295,9 @@ public class SteamService {
 	
 		Set<Long> ids = new HashSet<>();
 		ids.add(76561198063495322l);
+		ids.add(76561198073973734l);
 		
-		service.getPlayerSummaries(ids);
+		System.out.println(service.getPlayerSummaries(ids));
 		
 	}
 	
