@@ -1,7 +1,9 @@
 package com.sandbox.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
@@ -228,12 +230,46 @@ public class SteamService {
 		return null;
 	}
 
+	//http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=81388AF4FDBC32329C1C657A8E11420F&vanityurl=vernisan
+	//76561198063495322
+	public void getPlayerSummaries(Set<Long> steamids) {
+		HttpClient httpclient = new DefaultHttpClient();
+
+		String idsParam  = "";
+		
+		for(Long steamid: steamids) {
+			idsParam += steamid + ",";
+		}
+		
+		String url = "https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/" + "?key=" + key + "&steamids=" + idsParam  ;
+		
+		try {
+			HttpGet httpget = new HttpGet(url);
+			
+			ResponseHandler<String> responseHandler = new BasicResponseHandler();
+			String responseBody = httpclient.execute(httpget, responseHandler);
+			System.out.println(responseBody);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			httpclient.getConnectionManager().shutdown();
+		}
+		
+//		return null;
+		
+	}
+	
 	public static void main(String[] args) {
 		
 		SteamService service = new SteamService();
 //		System.out.println(service.getMatchDetails(305007174));
 		
-		System.out.println(service.getHeroes());
+//		System.out.println(service.getHeroes());
+	
+		Set<Long> ids = new HashSet<>();
+		ids.add(76561198063495322l);
+		
+		service.getPlayerSummaries(ids);
 		
 	}
 	
