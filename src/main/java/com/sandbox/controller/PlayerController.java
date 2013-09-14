@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.sandbox.service.PlayerService;
 import com.sandbox.service.SteamService;
 import com.sandbox.service.result.Match;
 import com.sandbox.service.result.MatchDetailsResult;
@@ -26,8 +27,20 @@ public class PlayerController {
 	@Autowired
 	private SteamService steamService;
 	
-	// http://localhost:8081/player/103229594/matchHistory
+	@Autowired
+	private PlayerService playerService;
+
+	@RequestMapping("/create")
+	public String createPlayer() {
+		com.sandbox.model.Player player = new com.sandbox.model.Player();
+		player.setAccountId(123456789l);
+		
+		playerService.create(player);
+		
+		return "path";
+	}
 	
+	// http://localhost:8081/player/103229594/matchHistory
 	@RequestMapping("/player/{accountID}/matchHistory")
 	public String matchHistory(@PathVariable Long accountID, Model model) {
 		 MatchHistoryResult matchHistoryResult = steamService.getMatchHistory(accountID);
