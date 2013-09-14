@@ -2,19 +2,30 @@ package com.sandbox.service.result;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+@Entity
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class MatchDetailsResult {
 
-	private long matchId;
+	@Id
+	private Long matchId;
 	
-	private List<Player> players;
+	@OneToMany
+	private List<PlayerInMatch> players;
 	
-	private boolean radiantWin;
+	private Boolean radiantWin;
 	
-	private int duration;
+	private Integer duration;
 	
-	private long startTime;
+	private Long startTime;
 	
-	private long matchSeqNum;
+	private Long matchSeqNum;
 	
 //	"tower_status_radiant": 1828,
 //	"tower_status_dire": 0,
@@ -22,101 +33,101 @@ public class MatchDetailsResult {
 //	"barracks_status_dire": 0,
 //	"cluster": 200,
 	
-	private int firstBloodTime;
+	private Integer firstBloodTime;
 	
-	private int lobbyType;
+	private Integer lobbyType;
 	
-	private int humanPlayers;
+	private Integer humanPlayers;
 	
-	private int leagueId;
+	private Integer leagueId;
 
-	private int gameMode;
-	
-	public long getMatchId() {
+	private Integer gameMode;
+
+	public Long getMatchId() {
 		return matchId;
 	}
 
-	public void setMatchId(long matchId) {
+	public void setMatchId(Long matchId) {
 		this.matchId = matchId;
 	}
 
-	public List<Player> getPlayers() {
+	public List<PlayerInMatch> getPlayers() {
 		return players;
 	}
 
-	public void setPlayers(List<Player> players) {
+	public void setPlayers(List<PlayerInMatch> players) {
 		this.players = players;
 	}
 
-	public boolean isRadiantWin() {
+	public Boolean isRadiantWin() {
 		return radiantWin;
 	}
 
-	public void setRadiantWin(boolean radiantWin) {
+	public void setRadiantWin(Boolean radiantWin) {
 		this.radiantWin = radiantWin;
 	}
 
-	public int getDuration() {
+	public Integer getDuration() {
 		return duration;
 	}
 
-	public void setDuration(int duration) {
+	public void setDuration(Integer duration) {
 		this.duration = duration;
 	}
 
-	public long getStartTime() {
+	public Long getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(long startTime) {
+	public void setStartTime(Long startTime) {
 		this.startTime = startTime;
 	}
 
-	public long getMatchSeqNum() {
+	public Long getMatchSeqNum() {
 		return matchSeqNum;
 	}
 
-	public void setMatchSeqNum(long matchSeqNum) {
+	public void setMatchSeqNum(Long matchSeqNum) {
 		this.matchSeqNum = matchSeqNum;
 	}
 
-	public int getFirstBloodTime() {
+	public Integer getFirstBloodTime() {
 		return firstBloodTime;
 	}
 
-	public void setFirstBloodTime(int firstBloodTime) {
+	public void setFirstBloodTime(Integer firstBloodTime) {
 		this.firstBloodTime = firstBloodTime;
 	}
 
-	public int getLobbyType() {
+	public Integer getLobbyType() {
 		return lobbyType;
 	}
 
-	public void setLobbyType(int lobbyType) {
+	public void setLobbyType(Integer lobbyType) {
 		this.lobbyType = lobbyType;
 	}
 
-	public int getHumanPlayers() {
+	public Integer getHumanPlayers() {
 		return humanPlayers;
 	}
 
-	public void setHumanPlayers(int humanPlayers) {
+	public void setHumanPlayers(Integer humanPlayers) {
 		this.humanPlayers = humanPlayers;
 	}
 
-	public int getLeagueId() {
+	public Integer getLeagueId() {
 		return leagueId;
 	}
 
-	public void setLeagueId(int leagueId) {
+	public void setLeagueId(Integer leagueId) {
 		this.leagueId = leagueId;
 	}
 
-	public int getGameMode() {
+	public Integer getGameMode() {
 		return gameMode;
 	}
 
-	public void setGameMode(int gameMode) {
+	public void setGameMode(Integer gameMode) {
 		this.gameMode = gameMode;
 	}
 	

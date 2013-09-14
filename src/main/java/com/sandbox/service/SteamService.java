@@ -19,7 +19,7 @@ import com.sandbox.service.result.Item;
 import com.sandbox.service.result.Match;
 import com.sandbox.service.result.MatchDetailsResult;
 import com.sandbox.service.result.MatchHistoryResult;
-import com.sandbox.service.result.Player;
+import com.sandbox.service.result.PlayerInMatch;
 import com.sandbox.service.result.PlayerSummary;
 
 @Service
@@ -72,7 +72,7 @@ public class SteamService {
 
 					JSONObject playerObj = playersArray.getJSONObject(j);
 
-					Player player = new Player();
+					PlayerInMatch player = new PlayerInMatch();
 
 					player.setAccountId(playerObj.getLong("account_id"));
 					player.setPlayerSlot(playerObj.getInt("player_slot"));
@@ -117,12 +117,12 @@ public class SteamService {
 			
 			JSONArray playersArray = res.getJSONArray("players");
 			
-			List<Player> players = new ArrayList<>();
+			List<PlayerInMatch> players = new ArrayList<>();
 			
 			for (int j = 0; j < playersArray.length(); j++) {
 				JSONObject playerObj = playersArray.getJSONObject(j);
 				
-				Player player = new Player();
+				PlayerInMatch player = new PlayerInMatch();
 
 				player.setAccountId(playerObj.getLong("account_id"));
 				player.setHeroId(playerObj.getInt("hero_id"));

@@ -41,6 +41,11 @@ public class MyWebConfig extends WebMvcConfigurerAdapter {
 	private static final String PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO = "hibernate.hbm2ddl.auto";
 	private static final String PROPERTY_NAME_ENTITYMANAGER_PACKAGES_TO_SCAN = "entitymanager.packages.to.scan";
 
+	
+	private static final String PROPERTY_NAME_HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE = "hibernate.cache.use_second_level_cache";
+	private static final String PROPERTY_NAME_HIBERNATE_DIALECT_CACHE_USE_QUERY_CACHE = "hibernate.cache.use_query_cache";
+	private static final String PROPERTY_NAME_HIBERNATE_DIALECT_CACHE_REGION_FACTORY_CLASS = "hibernate.cache.region.factory_class";
+	
 	@Resource
 	private Environment env;
 	
@@ -74,6 +79,10 @@ getRequiredProperty(PROPERTY_NAME_ENTITYMANAGER_PACKAGES_TO_SCAN).split(","));
 		properties.put(PROPERTY_NAME_HIBERNATE_DIALECT,	env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_DIALECT));
 		properties.put(PROPERTY_NAME_HIBERNATE_SHOW_SQL, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_SHOW_SQL));
 		properties.put(PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO));
+		
+		properties.put(PROPERTY_NAME_HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE));
+		properties.put(PROPERTY_NAME_HIBERNATE_DIALECT_CACHE_USE_QUERY_CACHE, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_DIALECT_CACHE_USE_QUERY_CACHE));
+		properties.put(PROPERTY_NAME_HIBERNATE_DIALECT_CACHE_REGION_FACTORY_CLASS, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_DIALECT_CACHE_REGION_FACTORY_CLASS));
 		return properties;
 	}
 	

@@ -16,10 +16,18 @@
             <url>http://rsync.xypron.de/repository</url>
             <layout>default</layout>
         </repository>
+        
+        <repository>
+		   <id>terracotta-releases</id>
+		   <url>http://www.terracotta.org/download/reflector/releases</url>
+		   <releases><enabled>true</enabled></releases>
+		   <snapshots><enabled>false</enabled></snapshots>
+		</repository>
     </repositories>
   
 	<properties>
 		<spring.version>3.2.4.RELEASE</spring.version>
+		<ehcacheVersion>2.7.3</ehcacheVersion>
 	</properties>
   
   
@@ -43,6 +51,13 @@
 		<groupId>org.springframework</groupId>
 		<artifactId>spring-context-support</artifactId>
 		<version>${spring.version}</version>
+	</dependency>
+	
+	
+	<dependency>
+	   <groupId>net.sf.ehcache</groupId>
+	   <artifactId>ehcache-core</artifactId>
+	   <version>${ehcacheVersion}</version>
 	</dependency>
   
     <!-- Velocity -->
@@ -95,6 +110,12 @@
 		<groupId>org.hibernate</groupId>
 		<artifactId>hibernate-entitymanager</artifactId>
 		<version>4.2.5.Final</version>
+	</dependency>
+  
+  	<dependency>
+	  <groupId>org.hibernate</groupId>
+	  <artifactId>hibernate-ehcache</artifactId>
+	  <version>4.2.5.Final</version>
 	</dependency>
   
  	<dependency>

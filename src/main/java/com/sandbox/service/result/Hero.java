@@ -1,8 +1,17 @@
 package com.sandbox.service.result;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+@Entity
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Hero {
 	
-	private int id;
+	@Id
+	private Integer id;
 	
 	private String name;
 	
@@ -10,11 +19,11 @@ public class Hero {
 	
 	private String language;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

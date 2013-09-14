@@ -3,49 +3,62 @@ package com.sandbox.service.result;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+@Entity
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class MatchHistoryResult {
 
-	private int status;
+	@EmbeddedId
+	private MatchHistoryResultKey matchHistoryResultKey;
 	
-	//statusDetail
-	
-	private int numResults;
-	
-	private int totalResults;
-	
-	private int resultsRemaining;
-	
+	private Integer status;
+
+	// statusDetail
+
+	private Integer numResults;
+
+	private Integer totalResults;
+
+	private Integer resultsRemaining;
+
+	@ManyToMany
 	private List<Match> matches = new ArrayList<>();
 
-	public int getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 
-	public int getNumResults() {
+	public Integer getNumResults() {
 		return numResults;
 	}
 
-	public void setNumResults(int numResults) {
+	public void setNumResults(Integer numResults) {
 		this.numResults = numResults;
 	}
 
-	public int getTotalResults() {
+	public Integer getTotalResults() {
 		return totalResults;
 	}
 
-	public void setTotalResults(int totalResults) {
+	public void setTotalResults(Integer totalResults) {
 		this.totalResults = totalResults;
 	}
 
-	public int getResultsRemaining() {
+	public Integer getResultsRemaining() {
 		return resultsRemaining;
 	}
 
-	public void setResultsRemaining(int resultsRemaining) {
+	public void setResultsRemaining(Integer resultsRemaining) {
 		this.resultsRemaining = resultsRemaining;
 	}
 
@@ -64,5 +77,5 @@ public class MatchHistoryResult {
 				+ ", resultsRemaining=" + resultsRemaining + ", matches="
 				+ matches + "]";
 	}
-	
+
 }

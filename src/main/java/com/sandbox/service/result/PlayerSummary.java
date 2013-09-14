@@ -1,16 +1,26 @@
 package com.sandbox.service.result;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+
+@Entity
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class PlayerSummary {
 
 	//remaining params here: http://wiki.teamfortress.com/wiki/WebAPI/GetPlayerSummaries
 	
-	private long steamId;
+	@Id
+	private Long steamId;
 	
-	private int communityVisibilityState;
+	private Integer communityVisibilityState;
 	
 	private String personaname;
 	
-	private long lastLogOff;
+	private Long lastLogOff;
 	
 	private String profileurl;
 	
@@ -20,21 +30,21 @@ public class PlayerSummary {
 	
 	private String avatarFull;
 	
-	private int personastate;
+	private Integer personastate;
 
-	public long getSteamId() {
+	public Long getSteamId() {
 		return steamId;
 	}
 
-	public void setSteamId(long steamId) {
+	public void setSteamId(Long steamId) {
 		this.steamId = steamId;
 	}
 
-	public int getCommunityVisibilityState() {
+	public Integer getCommunityVisibilityState() {
 		return communityVisibilityState;
 	}
 
-	public void setCommunityVisibilityState(int communityVisibilityState) {
+	public void setCommunityVisibilityState(Integer communityVisibilityState) {
 		this.communityVisibilityState = communityVisibilityState;
 	}
 
@@ -46,11 +56,11 @@ public class PlayerSummary {
 		this.personaname = personaname;
 	}
 
-	public long getLastLogOff() {
+	public Long getLastLogOff() {
 		return lastLogOff;
 	}
 
-	public void setLastLogOff(long lastLogOff) {
+	public void setLastLogOff(Long lastLogOff) {
 		this.lastLogOff = lastLogOff;
 	}
 
@@ -86,11 +96,11 @@ public class PlayerSummary {
 		this.avatarFull = avatarFull;
 	}
 
-	public int getPersonastate() {
+	public Integer getPersonastate() {
 		return personastate;
 	}
 
-	public void setPersonastate(int personastate) {
+	public void setPersonastate(Integer personastate) {
 		this.personastate = personastate;
 	}
 
@@ -103,5 +113,5 @@ public class PlayerSummary {
 				+ ", avatarMedium=" + avatarMedium + ", avatarFull="
 				+ avatarFull + ", personastate=" + personastate + "]";
 	}
-	
+
 }

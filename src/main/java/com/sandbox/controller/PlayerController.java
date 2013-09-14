@@ -14,7 +14,7 @@ import com.sandbox.service.SteamService;
 import com.sandbox.service.result.Match;
 import com.sandbox.service.result.MatchDetailsResult;
 import com.sandbox.service.result.MatchHistoryResult;
-import com.sandbox.service.result.Player;
+import com.sandbox.service.result.PlayerInMatch;
 import com.sandbox.view.bean.Hero;
 import com.sandbox.view.bean.Item;
 import com.sandbox.view.bean.LobbyType;
@@ -66,7 +66,7 @@ public class PlayerController {
 		Hero hero = new Hero();
 		playerMatch.setHero(hero);
 		
-		for(Player player: recordedMatch.getPlayers()) {
+		for(PlayerInMatch player: recordedMatch.getPlayers()) {
 			if(player.getAccountId() == playerAccountId) {
 				hero.setId(player.getHeroId());
 			}
@@ -74,7 +74,7 @@ public class PlayerController {
 
 		MatchDetailsResult matchDetails = steamService.getMatchDetails(recordedMatch.getMatchId());
 		
-		for(Player p : matchDetails.getPlayers()) {
+		for(PlayerInMatch p : matchDetails.getPlayers()) {
 			if(p.getAccountId() == playerAccountId) {
 				playerMatch.setKills(p.getKills());
 				playerMatch.setDeaths(p.getDeaths());

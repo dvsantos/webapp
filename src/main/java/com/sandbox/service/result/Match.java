@@ -3,55 +3,67 @@ package com.sandbox.service.result;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+@Entity
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Match {
 
-	private long matchId;
-	
-	private long matchSeqNum;
-	
-	private long startTime;
+	@Id
+	private Long matchId;
 
-	private int lobbyType;
-	
-	private List<Player> players = new ArrayList<>();
-	
-	public long getMatchId() {
+	private Long matchSeqNum;
+
+	private Long startTime;
+
+	private Integer lobbyType;
+
+	// cache?
+	@OneToMany
+	private List<PlayerInMatch> players = new ArrayList<>();
+
+	public Long getMatchId() {
 		return matchId;
 	}
 
-	public void setMatchId(long matchId) {
+	public void setMatchId(Long matchId) {
 		this.matchId = matchId;
 	}
 
-	public long getMatchSeqNum() {
+	public Long getMatchSeqNum() {
 		return matchSeqNum;
 	}
 
-	public void setMatchSeqNum(long matchSeqNum) {
+	public void setMatchSeqNum(Long matchSeqNum) {
 		this.matchSeqNum = matchSeqNum;
 	}
 
-	public long getStartTime() {
+	public Long getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(long startTime) {
+	public void setStartTime(Long startTime) {
 		this.startTime = startTime;
 	}
 
-	public int getLobbyType() {
+	public Integer getLobbyType() {
 		return lobbyType;
 	}
 
-	public void setLobbyType(int lobbyType) {
+	public void setLobbyType(Integer lobbyType) {
 		this.lobbyType = lobbyType;
 	}
 
-	public List<Player> getPlayers() {
+	public List<PlayerInMatch> getPlayers() {
 		return players;
 	}
 
-	public void setPlayers(List<Player> players) {
+	public void setPlayers(List<PlayerInMatch> players) {
 		this.players = players;
 	}
 
@@ -61,5 +73,5 @@ public class Match {
 				+ ", startTime=" + startTime + ", lobbyType=" + lobbyType
 				+ ", players=" + players + "]";
 	}
-	
+
 }
