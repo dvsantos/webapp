@@ -26,6 +26,9 @@ import com.sandbox.service.result.PlayerSummary;
 @Service(value="simpleService")
 public class SteamServiceImpl implements SteamService {
 
+	//https://api.steampowered.com/IDOTA2Match_570/GetMatchHistoryBySequenceNum/V001/?key=81388AF4FDBC32329C1C657A8E11420F&start_at_match_seq_num=283535716
+	
+	
 	private String baseURL = "https://api.steampowered.com/IDOTA2Match_570/";
 
 	private String key = "81388AF4FDBC32329C1C657A8E11420F";
@@ -309,11 +312,20 @@ public class SteamServiceImpl implements SteamService {
 //		System.out.println(service.getMatchDetails(305007174));
 		
 //		System.out.println(service.getHeroes());
+		
+		
+		long a = 83615786l + 76561197960265728l;
+		
+		System.out.println(a);
+		
 	
 		Set<Long> ids = new HashSet<>();
-		ids.add(76561198063495322l);
-		ids.add(76561198073973734l);
+//		ids.add(76561198063495322l);
+//		ids.add(76561198073973734l);
 		
+		ids.add(a);
+		
+//		
 		System.out.println(service.getPlayerSummaries(ids));
 		
 	}

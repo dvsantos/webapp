@@ -54,11 +54,12 @@ public class SampleController {
     
     public static void main(String[] args) {
 
-    	String epochString = "1377236371";
+    	String epochString = "1379273345";
     	long epoch = Long.parseLong( epochString );
     	Date expiry = new Date( epoch * 1000 );
     	System.out.println(expiry);
     	
+    	System.exit(-1);
 
 		SolverFactory factory = new SolverFactoryGLPK(); // use lp_solve
     	factory.setParameter(Solver.VERBOSE, 9); 

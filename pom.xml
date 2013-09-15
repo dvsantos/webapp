@@ -28,6 +28,7 @@
 	<properties>
 		<spring.version>3.2.4.RELEASE</spring.version>
 		<ehcacheVersion>2.7.3</ehcacheVersion>
+		<hibernate.version>4.1.1.Final</hibernate.version>
 	</properties>
   
   
@@ -103,19 +104,26 @@
     <dependency>
    		<groupId>org.hibernate</groupId>
    		<artifactId>hibernate-core</artifactId>
-   		<version>4.2.5.Final</version>
+   		<version>${hibernate.version}</version>
+	</dependency>
+	
+	<dependency>
+   		<groupId>org.hibernate</groupId>
+   		<artifactId>hibernate-core</artifactId>
+   		<version>${hibernate.version}</version>
+   		<classifier>sources</classifier>
 	</dependency>
   
 	<dependency>
 		<groupId>org.hibernate</groupId>
 		<artifactId>hibernate-entitymanager</artifactId>
-		<version>4.2.5.Final</version>
+		<version>${hibernate.version}</version>
 	</dependency>
   
   	<dependency>
 	  <groupId>org.hibernate</groupId>
 	  <artifactId>hibernate-ehcache</artifactId>
-	  <version>4.2.5.Final</version>
+	  <version>${hibernate.version}</version>
 	</dependency>
   
  	<dependency>

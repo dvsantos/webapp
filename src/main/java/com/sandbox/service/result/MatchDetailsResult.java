@@ -2,12 +2,15 @@ package com.sandbox.service.result;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -16,7 +19,8 @@ public class MatchDetailsResult {
 	@Id
 	private Long matchId;
 	
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<PlayerInMatch> players;
 	
 	private Boolean radiantWin;
@@ -129,6 +133,16 @@ public class MatchDetailsResult {
 
 	public void setGameMode(Integer gameMode) {
 		this.gameMode = gameMode;
+	}
+
+	@Override
+	public String toString() {
+		return "MatchDetailsResult [matchId=" + matchId + ", players="
+				+ players + ", radiantWin=" + radiantWin + ", duration="
+				+ duration + ", startTime=" + startTime + ", matchSeqNum="
+				+ matchSeqNum + ", firstBloodTime=" + firstBloodTime
+				+ ", lobbyType=" + lobbyType + ", humanPlayers=" + humanPlayers
+				+ ", leagueId=" + leagueId + ", gameMode=" + gameMode + "]";
 	}
 	
 //	"positive_votes": 0,

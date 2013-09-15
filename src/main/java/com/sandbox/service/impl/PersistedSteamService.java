@@ -12,11 +12,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sandbox.service.SteamService;
+import com.sandbox.service.repository.ItemRepository;
+import com.sandbox.service.repository.MatchDetailsResultRepository;
 import com.sandbox.service.repository.MatchHistoryResultRepository;
 import com.sandbox.service.result.Hero;
+import com.sandbox.service.result.Item;
 import com.sandbox.service.result.MatchDetailsResult;
 import com.sandbox.service.result.MatchHistoryResult;
 import com.sandbox.service.result.MatchHistoryResultKey;
+import com.sandbox.service.result.PlayerInMatch;
 import com.sandbox.service.result.PlayerSummary;
 
 @Service(value="persistedService")
@@ -29,6 +33,14 @@ public class PersistedSteamService implements SteamService{
 	@Autowired
 	@Resource
 	private MatchHistoryResultRepository matchHistoryResultRepository;
+	
+	@Autowired
+	@Resource
+	private MatchDetailsResultRepository matchDetailsResultRepository;
+	
+	@Autowired
+	@Resource
+	private ItemRepository itemRepository;
 	
 	@Override
 	@Transactional
@@ -58,9 +70,20 @@ public class PersistedSteamService implements SteamService{
 	}
 
 	@Override
+	@Transactional
 	public MatchDetailsResult getMatchDetails(long matchId) {
-		// TODO Auto-generated method stub
-		return null;
+		MatchDetailsResult matchDetailsResult = matchDetailsResultRepository.findOne(matchId);
+		
+		if(matchDetailsResult == null) {
+			matchDetailsResult = steamService.getMatchDetails(matchId);
+			
+			if(matchDetailsResult != null) {
+				matchDetailsResultRepository.save(matchDetailsResult);
+			}
+			
+		}
+		
+		return matchDetailsResult;
 	}
 
 	@Override
