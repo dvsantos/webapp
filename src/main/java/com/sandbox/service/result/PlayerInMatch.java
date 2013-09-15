@@ -2,25 +2,33 @@ package com.sandbox.service.result;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class PlayerInMatch {
 
 	@Id
+	@GeneratedValue
+	private Long playerInMatchId;
+	
 	private Long accountId;
 	
 	private Integer playerSlot;
 	
 	private Integer heroId;
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Item> items;
 	
 	private Integer kills;
@@ -51,8 +59,16 @@ public class PlayerInMatch {
 	
 	@Override
 	public String toString() {
-		return "Player [accountId=" + accountId + ", playerSlot=" + playerSlot
+		return "PlayerInMatch [accountId=" + accountId + ", playerSlot=" + playerSlot
 				+ ", heroId=" + heroId + "]";
+	}
+
+	public Long getPlayerInMatchId() {
+		return playerInMatchId;
+	}
+
+	public void setPlayerInMatchId(Long playerInMatchId) {
+		this.playerInMatchId = playerInMatchId;
 	}
 
 	public Long getAccountId() {

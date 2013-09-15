@@ -27,7 +27,7 @@ import org.springframework.web.servlet.view.velocity.VelocityViewResolver;
 @EnableWebMvc
 @ComponentScan(basePackages = { "com.sandbox.controller", "com.sandbox.service", "com.sandbox.service.impl", "com.sandbox.repository" })
 @PropertySource("classpath:application.properties")
-@EnableJpaRepositories("com.sandbox.repository")
+@EnableJpaRepositories(basePackages = {"com.sandbox.repository", "com.sandbox.service.repository"})
 @EnableTransactionManagement
 public class MyWebConfig extends WebMvcConfigurerAdapter {
  

@@ -3,12 +3,15 @@ package com.sandbox.service.result;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -27,8 +30,17 @@ public class MatchHistoryResult {
 
 	private Integer resultsRemaining;
 
-	@ManyToMany
-	private List<Match> matches = new ArrayList<>();
+	@ManyToMany(cascade = CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<DotaMatch> matches = new ArrayList<>();
+	
+	public MatchHistoryResultKey getMatchHistoryResultKey() {
+		return matchHistoryResultKey;
+	}
+
+	public void setMatchHistoryResultKey(MatchHistoryResultKey matchHistoryResultKey) {
+		this.matchHistoryResultKey = matchHistoryResultKey;
+	}
 
 	public Integer getStatus() {
 		return status;
@@ -62,11 +74,11 @@ public class MatchHistoryResult {
 		this.resultsRemaining = resultsRemaining;
 	}
 
-	public List<Match> getMatches() {
+	public List<DotaMatch> getMatches() {
 		return matches;
 	}
 
-	public void setMatches(List<Match> matches) {
+	public void setMatches(List<DotaMatch> matches) {
 		this.matches = matches;
 	}
 

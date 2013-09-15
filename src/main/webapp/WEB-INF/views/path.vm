@@ -1,3 +1,6 @@
 
-$matchHistoryResult
+#foreach($DotaMatch in $matchHistoryResult.matches)
 
+	$DotaMatch <br/> <br/>
+
+#end

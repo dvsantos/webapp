@@ -9,9 +9,9 @@ import net.sf.javailp.Result;
 import net.sf.javailp.Solver;
 import net.sf.javailp.SolverFactory;
 import net.sf.javailp.SolverFactoryGLPK;
-import net.sf.javailp.SolverFactoryLpSolve;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +22,7 @@ import com.sandbox.service.SteamService;
 public class SampleController {
 
 	@Autowired
+	@Qualifier(value="persistedService")
 	private SteamService steamService;
 	
     @RequestMapping("/path")

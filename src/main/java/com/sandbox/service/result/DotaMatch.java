@@ -3,16 +3,19 @@ package com.sandbox.service.result;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Match {
+public class DotaMatch {
 
 	@Id
 	private Long matchId;
@@ -24,7 +27,8 @@ public class Match {
 	private Integer lobbyType;
 
 	// cache?
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<PlayerInMatch> players = new ArrayList<>();
 
 	public Long getMatchId() {

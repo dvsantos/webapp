@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sandbox.service.PlayerService;
 import com.sandbox.service.SteamService;
-import com.sandbox.service.result.Match;
+import com.sandbox.service.result.DotaMatch;
 import com.sandbox.service.result.MatchDetailsResult;
 import com.sandbox.service.result.MatchHistoryResult;
 import com.sandbox.service.result.PlayerInMatch;
@@ -25,6 +26,7 @@ import com.sandbox.view.bean.PlayerMatch;
 public class PlayerController {
 
 	@Autowired
+	@Qualifier(value="persistedService")
 	private SteamService steamService;
 	
 	@Autowired
@@ -47,7 +49,7 @@ public class PlayerController {
 		 
 		 List<PlayerMatch> matches = new ArrayList<>();
 		 
-		 for(Match recordedMatch : matchHistoryResult.getMatches().subList(0, 4)) {
+		 for(DotaMatch recordedMatch : matchHistoryResult.getMatches().subList(0, 4)) {
 			 PlayerMatch match = new PlayerMatch();
 
 			 map(recordedMatch, match, accountID);
@@ -60,7 +62,7 @@ public class PlayerController {
 		 return "matchHistory";
 	}
 
-	private void map(Match recordedMatch, PlayerMatch playerMatch, long playerAccountId) {
+	private void map(DotaMatch recordedMatch, PlayerMatch playerMatch, long playerAccountId) {
 		playerMatch.setMatchId(recordedMatch.getMatchId());
 		
 		Hero hero = new Hero();
