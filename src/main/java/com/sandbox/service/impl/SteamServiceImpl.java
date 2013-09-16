@@ -306,6 +306,31 @@ public class SteamServiceImpl implements SteamService {
 		
 	}
 	
+	@Override
+	public void getMatchHistoryBySequenceNum(long matchSeqNum) {
+		HttpClient httpclient = new DefaultHttpClient();
+
+		String url = baseURL + "GetMatchHistoryBySequenceNum/V001/" + "?key=" + key
+				+ "&match_id=" + matchSeqNum;
+
+		try {
+			HttpGet httpget = new HttpGet(url);
+			
+			ResponseHandler<String> responseHandler = new BasicResponseHandler();
+			String responseBody = httpclient.execute(httpget, responseHandler);
+
+			JSONObject obj = new JSONObject(responseBody);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			httpclient.getConnectionManager().shutdown();
+		}
+
+//		return null;
+		
+	}
+	
 	public static void main(String[] args) {
 		
 		SteamService service = new SteamServiceImpl();

@@ -98,4 +98,10 @@ public class PersistedSteamService implements SteamService{
 		return null;
 	}
 
+	@Override
+	public void getMatchHistoryBySequenceNum(long matchSeqNum) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

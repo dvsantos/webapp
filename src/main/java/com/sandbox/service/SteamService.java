@@ -11,6 +11,8 @@ import com.sandbox.service.result.PlayerSummary;
 public interface SteamService {
 
 	public abstract MatchHistoryResult getMatchHistory(long accountID);
+	
+	public abstract void getMatchHistoryBySequenceNum(long matchSeqNum);
 
 	public abstract MatchDetailsResult getMatchDetails(long matchId);
 
