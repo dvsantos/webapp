@@ -15,10 +15,11 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import com.sandbox.service.SteamService;
+import com.sandbox.service.result.DotaMatch;
 import com.sandbox.service.result.Hero;
 import com.sandbox.service.result.Item;
-import com.sandbox.service.result.DotaMatch;
 import com.sandbox.service.result.MatchDetailsResult;
+import com.sandbox.service.result.MatchHistoryBySequenceNumResult;
 import com.sandbox.service.result.MatchHistoryResult;
 import com.sandbox.service.result.PlayerInMatch;
 import com.sandbox.service.result.PlayerSummary;
@@ -32,6 +33,73 @@ public class SteamServiceImpl implements SteamService {
 	private String baseURL = "https://api.steampowered.com/IDOTA2Match_570/";
 
 	private String key = "81388AF4FDBC32329C1C657A8E11420F";
+	
+	@Override
+	public MatchHistoryBySequenceNumResult getMatchHistoryBySequenceNum(long startMatchSeqNum) {
+		HttpClient httpclient = new DefaultHttpClient();
+
+		String url = baseURL + "GetMatchHistoryBySequenceNum/V001/" + "?key=" + key
+				+ "&start_at_match_seq_num=" + startMatchSeqNum;
+
+		try {
+			HttpGet httpget = new HttpGet(url);
+			
+			ResponseHandler<String> responseHandler = new BasicResponseHandler();
+			String responseBody = httpclient.execute(httpget, responseHandler);
+
+			JSONObject obj = new JSONObject(responseBody);
+			
+			MatchHistoryBySequenceNumResult result = new MatchHistoryBySequenceNumResult();
+
+			JSONObject res = obj.getJSONObject("result");
+
+			result.setStatus(res.getInt("status"));
+//			result.setNumResults(res.getInt("num_results"));
+//			result.setTotalResults(res.getInt("total_results"));
+//			result.setResultsRemaining(res.getInt("results_remaining"));
+
+			JSONArray matchesArray = res.getJSONArray("matches");
+
+			for (int i = 0; i < matchesArray.length(); i++) {
+
+				JSONObject matchObj = matchesArray.getJSONObject(i);
+
+				DotaMatch match = new DotaMatch();
+
+				match.setMatchId(matchObj.getLong("match_id"));
+				match.setMatchSeqNum(matchObj.getLong("match_seq_num"));
+				match.setStartTime(matchObj.getLong("start_time"));
+				match.setLobbyType(matchObj.getInt("lobby_type"));
+
+				JSONArray playersArray = matchObj.getJSONArray("players");
+
+				for (int j = 0; j < playersArray.length(); j++) {
+
+					JSONObject playerObj = playersArray.getJSONObject(j);
+
+					PlayerInMatch player = new PlayerInMatch();
+
+					player.setAccountId(playerObj.getLong("account_id"));
+					player.setPlayerSlot(playerObj.getInt("player_slot"));
+					player.setHeroId(playerObj.getInt("hero_id"));
+
+					match.getPlayers().add(player);
+				}
+
+//				result.getMatches().add(match);
+			}
+			
+			return result;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			httpclient.getConnectionManager().shutdown();
+		}
+
+		return null;
+		
+	}
 
 	/* (non-Javadoc)
 	 * @see com.sandbox.service.SteamServiceI#getMatchHistory(long)
@@ -87,6 +155,7 @@ public class SteamServiceImpl implements SteamService {
 					player.setHeroId(playerObj.getInt("hero_id"));
 
 					match.getPlayers().add(player);
+					
 				}
 
 				result.getMatches().add(match);
@@ -306,31 +375,6 @@ public class SteamServiceImpl implements SteamService {
 		
 	}
 	
-	@Override
-	public void getMatchHistoryBySequenceNum(long matchSeqNum) {
-		HttpClient httpclient = new DefaultHttpClient();
-
-		String url = baseURL + "GetMatchHistoryBySequenceNum/V001/" + "?key=" + key
-				+ "&match_id=" + matchSeqNum;
-
-		try {
-			HttpGet httpget = new HttpGet(url);
-			
-			ResponseHandler<String> responseHandler = new BasicResponseHandler();
-			String responseBody = httpclient.execute(httpget, responseHandler);
-
-			JSONObject obj = new JSONObject(responseBody);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			httpclient.getConnectionManager().shutdown();
-		}
-
-//		return null;
-		
-	}
-	
 	public static void main(String[] args) {
 		
 		SteamService service = new SteamServiceImpl();
@@ -341,7 +385,7 @@ public class SteamServiceImpl implements SteamService {
 		
 		long a = 83615786l + 76561197960265728l;
 		
-		System.out.println(a);
+//		System.out.println(a);
 		
 	
 		Set<Long> ids = new HashSet<>();
@@ -351,7 +395,9 @@ public class SteamServiceImpl implements SteamService {
 		ids.add(a);
 		
 //		
-		System.out.println(service.getPlayerSummaries(ids));
+//		System.out.println(service.getPlayerSummaries(ids));
+		
+		System.out.println(service.getMatchHistoryBySequenceNum(283535716l));
 		
 	}
 	

@@ -5,6 +5,7 @@ import java.util.Set;
 
 import com.sandbox.service.result.Hero;
 import com.sandbox.service.result.MatchDetailsResult;
+import com.sandbox.service.result.MatchHistoryBySequenceNumResult;
 import com.sandbox.service.result.MatchHistoryResult;
 import com.sandbox.service.result.PlayerSummary;
 
@@ -12,7 +13,7 @@ public interface SteamService {
 
 	public abstract MatchHistoryResult getMatchHistory(long accountID);
 	
-	public abstract void getMatchHistoryBySequenceNum(long matchSeqNum);
+	public abstract MatchHistoryBySequenceNumResult getMatchHistoryBySequenceNum(long matchSeqNum);
 
 	public abstract MatchDetailsResult getMatchDetails(long matchId);
 

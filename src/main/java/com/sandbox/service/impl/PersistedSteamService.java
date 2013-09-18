@@ -16,11 +16,10 @@ import com.sandbox.service.repository.ItemRepository;
 import com.sandbox.service.repository.MatchDetailsResultRepository;
 import com.sandbox.service.repository.MatchHistoryResultRepository;
 import com.sandbox.service.result.Hero;
-import com.sandbox.service.result.Item;
 import com.sandbox.service.result.MatchDetailsResult;
+import com.sandbox.service.result.MatchHistoryBySequenceNumResult;
 import com.sandbox.service.result.MatchHistoryResult;
 import com.sandbox.service.result.MatchHistoryResultKey;
-import com.sandbox.service.result.PlayerInMatch;
 import com.sandbox.service.result.PlayerSummary;
 
 @Service(value="persistedService")
@@ -99,9 +98,9 @@ public class PersistedSteamService implements SteamService{
 	}
 
 	@Override
-	public void getMatchHistoryBySequenceNum(long matchSeqNum) {
+	public MatchHistoryBySequenceNumResult getMatchHistoryBySequenceNum(long matchSeqNum) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 }
