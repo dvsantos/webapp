@@ -41,6 +41,8 @@ public class SteamServiceImpl implements SteamService {
 		String url = baseURL + "GetMatchHistoryBySequenceNum/V001/" + "?key=" + key
 				+ "&start_at_match_seq_num=" + startMatchSeqNum;
 
+		System.out.println(url);
+		
 		try {
 			HttpGet httpget = new HttpGet(url);
 			
@@ -49,19 +51,19 @@ public class SteamServiceImpl implements SteamService {
 
 			JSONObject obj = new JSONObject(responseBody);
 			
+			System.out.println("did request");
+			
 			MatchHistoryBySequenceNumResult result = new MatchHistoryBySequenceNumResult();
 
 			JSONObject res = obj.getJSONObject("result");
 
 			result.setStatus(res.getInt("status"));
-//			result.setNumResults(res.getInt("num_results"));
-//			result.setTotalResults(res.getInt("total_results"));
-//			result.setResultsRemaining(res.getInt("results_remaining"));
 
 			JSONArray matchesArray = res.getJSONArray("matches");
 
 			for (int i = 0; i < matchesArray.length(); i++) {
-
+				System.out.println(i + " " + matchesArray.length());
+				
 				JSONObject matchObj = matchesArray.getJSONObject(i);
 
 				DotaMatch match = new DotaMatch();
@@ -86,8 +88,10 @@ public class SteamServiceImpl implements SteamService {
 					match.getPlayers().add(player);
 				}
 
-//				result.getMatches().add(match);
+				result.getMatches().add(match);
 			}
+			
+			System.out.println("ok");
 			
 			return result;
 			
@@ -132,7 +136,6 @@ public class SteamServiceImpl implements SteamService {
 			JSONArray matchesArray = res.getJSONArray("matches");
 
 			for (int i = 0; i < matchesArray.length(); i++) {
-
 				JSONObject matchObj = matchesArray.getJSONObject(i);
 
 				DotaMatch match = new DotaMatch();
