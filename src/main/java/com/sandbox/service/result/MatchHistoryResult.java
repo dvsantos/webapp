@@ -32,7 +32,7 @@ public class MatchHistoryResult {
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	private List<DotaMatch> matches = new ArrayList<>();
+	private List<GameMatch> matches = new ArrayList<>();
 	
 	public MatchHistoryResultKey getMatchHistoryResultKey() {
 		return matchHistoryResultKey;
@@ -74,11 +74,11 @@ public class MatchHistoryResult {
 		this.resultsRemaining = resultsRemaining;
 	}
 
-	public List<DotaMatch> getMatches() {
+	public List<GameMatch> getMatches() {
 		return matches;
 	}
 
-	public void setMatches(List<DotaMatch> matches) {
+	public void setMatches(List<GameMatch> matches) {
 		this.matches = matches;
 	}
 

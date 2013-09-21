@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 import org.hibernate.annotations.Cache;
@@ -16,11 +17,14 @@ import org.hibernate.annotations.LazyCollectionOption;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class MatchHistoryBySequenceNumResult {
 
+	@Id
+	private Long matchHistoryBySequenceNumResultId;
+	
 	private Integer status;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	private List<DotaMatch> matches = new ArrayList<>();
+	private List<GameMatch> matches = new ArrayList<>();
 
 	public Integer getStatus() {
 		return status;
@@ -30,11 +34,11 @@ public class MatchHistoryBySequenceNumResult {
 		this.status = status;
 	}
 
-	public List<DotaMatch> getMatches() {
+	public List<GameMatch> getMatches() {
 		return matches;
 	}
 
-	public void setMatches(List<DotaMatch> matches) {
+	public void setMatches(List<GameMatch> matches) {
 		this.matches = matches;
 	}
 

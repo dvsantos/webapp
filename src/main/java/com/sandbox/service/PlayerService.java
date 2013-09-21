@@ -6,4 +6,6 @@ public interface PlayerService {
 
 	public Player create(Player player);
 	
+	public Player findPlayer(Long accountId);
+	
 }

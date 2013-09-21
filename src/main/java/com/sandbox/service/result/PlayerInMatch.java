@@ -29,7 +29,7 @@ public class PlayerInMatch {
 	
 	@ManyToMany(cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	private List<Item> items;
+	private List<DotaItem> items;
 	
 	private Integer kills;
 	
@@ -95,11 +95,11 @@ public class PlayerInMatch {
 		this.heroId = heroId;
 	}
 
-	public List<Item> getItems() {
+	public List<DotaItem> getItems() {
 		return items;
 	}
 
-	public void setItems(List<Item> items) {
+	public void setItems(List<DotaItem> items) {
 		this.items = items;
 	}
 

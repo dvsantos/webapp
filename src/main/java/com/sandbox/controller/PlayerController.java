@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sandbox.service.PlayerService;
 import com.sandbox.service.SteamService;
-import com.sandbox.service.result.DotaMatch;
+import com.sandbox.service.result.GameMatch;
 import com.sandbox.service.result.MatchDetailsResult;
 import com.sandbox.service.result.MatchHistoryResult;
 import com.sandbox.service.result.PlayerInMatch;
@@ -32,10 +32,25 @@ public class PlayerController {
 	@Autowired
 	private PlayerService playerService;
 
+	
+	@RequestMapping("/testeMerge")
+	public String testPlayer() {
+		com.sandbox.model.Player player = new com.sandbox.model.Player();
+		
+		player.setId(1l);
+		//player.setAccountId(123456789l);
+		player.setPersonaName("teste3");
+		
+		playerService.create(player);
+		
+		return "path";
+	}
+	
 	@RequestMapping("/create")
 	public String createPlayer() {
 		com.sandbox.model.Player player = new com.sandbox.model.Player();
 		player.setAccountId(123456789l);
+		player.setPersonaName("teste1");
 		
 		playerService.create(player);
 		
@@ -49,7 +64,7 @@ public class PlayerController {
 		 
 		 List<PlayerMatch> matches = new ArrayList<>();
 		 
-		 for(DotaMatch recordedMatch : matchHistoryResult.getMatches().subList(0, 4)) {
+		 for(GameMatch recordedMatch : matchHistoryResult.getMatches().subList(0, 4)) {
 			 PlayerMatch match = new PlayerMatch();
 
 			 map(recordedMatch, match, accountID);
@@ -62,7 +77,7 @@ public class PlayerController {
 		 return "matchHistory";
 	}
 
-	private void map(DotaMatch recordedMatch, PlayerMatch playerMatch, long playerAccountId) {
+	private void map(GameMatch recordedMatch, PlayerMatch playerMatch, long playerAccountId) {
 		playerMatch.setMatchId(recordedMatch.getMatchId());
 		
 		Hero hero = new Hero();
@@ -82,7 +97,7 @@ public class PlayerController {
 				playerMatch.setDeaths(p.getDeaths());
 				playerMatch.setAssists(p.getAssists());
 				
-				for(com.sandbox.service.result.Item item: p.getItems()) {
+				for(com.sandbox.service.result.DotaItem item: p.getItems()) {
 					Item playerItem = new Item();
 					playerItem.setId(item.getId());
 					playerMatch.getItems().add(playerItem);

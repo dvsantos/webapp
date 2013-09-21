@@ -21,4 +21,11 @@ public class JPAPlayerService implements PlayerService{
 		return playerRepository.save(player);
 	}
 
+	@Override
+	public Player findPlayer(Long accountId) {
+		Player player = playerRepository.findByAccountId(accountId);
+		
+		return player;
+	}
+
 }

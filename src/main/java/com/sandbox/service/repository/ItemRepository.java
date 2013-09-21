@@ -2,8 +2,8 @@ package com.sandbox.service.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.sandbox.service.result.Item;
+import com.sandbox.service.result.DotaItem;
 
-public interface ItemRepository extends JpaRepository<Item, Integer> {
+public interface ItemRepository extends JpaRepository<DotaItem, Integer> {
 
 }

@@ -8,7 +8,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Item {
+public class DotaItem {
 
 	@Id
 	private Integer id;
@@ -46,9 +46,9 @@ public class Item {
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof Item))
+		if (!(obj instanceof DotaItem))
 			return false;
-		Item other = (Item) obj;
+		DotaItem other = (DotaItem) obj;
 		if (getId() == null) {
 			if (other.getId() != null)
 				return false;

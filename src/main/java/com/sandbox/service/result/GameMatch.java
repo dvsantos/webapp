@@ -15,7 +15,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class DotaMatch {
+public class GameMatch {
 
 	@Id
 	private Long matchId;

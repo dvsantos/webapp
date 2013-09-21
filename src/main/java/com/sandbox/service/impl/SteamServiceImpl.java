@@ -11,13 +11,14 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import com.sandbox.service.SteamService;
-import com.sandbox.service.result.DotaMatch;
-import com.sandbox.service.result.Hero;
-import com.sandbox.service.result.Item;
+import com.sandbox.service.result.GameMatch;
+import com.sandbox.service.result.DotaHero;
+import com.sandbox.service.result.DotaItem;
 import com.sandbox.service.result.MatchDetailsResult;
 import com.sandbox.service.result.MatchHistoryBySequenceNumResult;
 import com.sandbox.service.result.MatchHistoryResult;
@@ -66,7 +67,7 @@ public class SteamServiceImpl implements SteamService {
 				
 				JSONObject matchObj = matchesArray.getJSONObject(i);
 
-				DotaMatch match = new DotaMatch();
+				GameMatch match = new GameMatch();
 
 				match.setMatchId(matchObj.getLong("match_id"));
 				match.setMatchSeqNum(matchObj.getLong("match_seq_num"));
@@ -81,7 +82,12 @@ public class SteamServiceImpl implements SteamService {
 
 					PlayerInMatch player = new PlayerInMatch();
 
-					player.setAccountId(playerObj.getLong("account_id"));
+					try {
+						player.setAccountId(playerObj.getLong("account_id"));
+					} catch (JSONException e) {
+						//TODO bot player?
+						e.printStackTrace();
+					}
 					player.setPlayerSlot(playerObj.getInt("player_slot"));
 					player.setHeroId(playerObj.getInt("hero_id"));
 
@@ -138,7 +144,7 @@ public class SteamServiceImpl implements SteamService {
 			for (int i = 0; i < matchesArray.length(); i++) {
 				JSONObject matchObj = matchesArray.getJSONObject(i);
 
-				DotaMatch match = new DotaMatch();
+				GameMatch match = new GameMatch();
 
 				match.setMatchId(matchObj.getLong("match_id"));
 				match.setMatchSeqNum(matchObj.getLong("match_seq_num"));
@@ -218,29 +224,29 @@ public class SteamServiceImpl implements SteamService {
 				player.setDeaths(playerObj.getInt("deaths"));
 				player.setAssists(playerObj.getInt("assists"));
 
-				List<Item> items = new ArrayList<>();
+				List<DotaItem> items = new ArrayList<>();
 				
-				Item item0 = new Item();
+				DotaItem item0 = new DotaItem();
 				item0.setId(playerObj.getInt("item_0"));
 				items.add(item0);
 				
-				Item item1 = new Item();
+				DotaItem item1 = new DotaItem();
 				item1.setId(playerObj.getInt("item_1"));
 				items.add(item1);
 
-				Item item2 = new Item();
+				DotaItem item2 = new DotaItem();
 				item2.setId(playerObj.getInt("item_2"));
 				items.add(item2);
 				
-				Item item3 = new Item();
+				DotaItem item3 = new DotaItem();
 				item3.setId(playerObj.getInt("item_3"));
 				items.add(item3);
 				
-				Item item4 = new Item();
+				DotaItem item4 = new DotaItem();
 				item4.setId(playerObj.getInt("item_4"));
 				items.add(item4);
 				
-				Item item5 = new Item();
+				DotaItem item5 = new DotaItem();
 				item5.setId(playerObj.getInt("item_5"));
 				items.add(item5);
 				
@@ -275,7 +281,7 @@ public class SteamServiceImpl implements SteamService {
 	 * @see com.sandbox.service.SteamServiceI#getHeroes()
 	 */
 	@Override
-	public List<Hero> getHeroes(){
+	public List<DotaHero> getHeroes(){
 		HttpClient httpclient = new DefaultHttpClient();
 
 		String url = "https://api.steampowered.com/IEconDOTA2_570/" + "GetHeroes/v0001/" + "?key=" + key
@@ -293,12 +299,12 @@ public class SteamServiceImpl implements SteamService {
 			
 			JSONArray heroesArray = res.getJSONArray("heroes");
 
-			List<Hero> heroes = new ArrayList<>();
+			List<DotaHero> heroes = new ArrayList<>();
 			
 			for (int j = 0; j < heroesArray.length(); j++) {
 				JSONObject heroObj = heroesArray.getJSONObject(j);
 				
-				Hero hero = new Hero();
+				DotaHero hero = new DotaHero();
 				
 				hero.setId(heroObj.getInt("id"));
 				hero.setName(heroObj.getString("name"));

@@ -15,7 +15,7 @@ import com.sandbox.service.SteamService;
 import com.sandbox.service.repository.ItemRepository;
 import com.sandbox.service.repository.MatchDetailsResultRepository;
 import com.sandbox.service.repository.MatchHistoryResultRepository;
-import com.sandbox.service.result.Hero;
+import com.sandbox.service.result.DotaHero;
 import com.sandbox.service.result.MatchDetailsResult;
 import com.sandbox.service.result.MatchHistoryBySequenceNumResult;
 import com.sandbox.service.result.MatchHistoryResult;
@@ -86,7 +86,7 @@ public class PersistedSteamService implements SteamService{
 	}
 
 	@Override
-	public List<Hero> getHeroes() {
+	public List<DotaHero> getHeroes() {
 		// TODO Auto-generated method stub
 		return null;
 	}
